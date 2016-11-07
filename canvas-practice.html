@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>纯CSS3实现iOS7风格进度条 - xw素材网</title>
+<script src="js/prefixfree.min.js"></script>
+<style>
+.demo-wrapper {min-height:350px;}
+html,body {height: 100%;}
+body {
+  background-color: #f5f7f9;
+  color: #6c6c6c;
+  font: 300 1em/1.5em;
+  margin: 0;
+  position: relative;
+}
+h1 {
+  font-size: 2.25em;
+  font-weight: 100;
+  line-height: 1.2em;
+  margin: 0 0 1.5em;
+}
+/* HELPERS */
+.text-center {
+  text-align: center;
+}
+/* GRID */
+.container {
+  left: 50%;
+  position: absolute;
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+/* PROGRESS */
+.progress {
+  background-color: #e5e9eb;
+  height: 0.25em;
+  position: relative;
+  width: 24em;
+}
+.progress-bar {
+  animation-duration: 3s;
+  animation-name: width;
+  background-image: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+  background-size: 24em 0.25em;
+  height: 100%;
+  position: relative;
+}
+.progress-shadow {
+  background-image: linear-gradient(to bottom, #eaecee, transparent);
+  height: 4em;
+  position: absolute;
+  top: 100%;
+  transform: skew(45deg);
+  transform-origin: 0 0;
+  width: 100%;
+}
+/* ANIMATIONS */
+@keyframes width {
+  0%, 100% {
+    transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+</style>
+<script type="text/javascript">
+  function draw() {
+    var canvas= document.getElementById("panel");
+    if (canvas.getContext){
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+      ctx.beginPath();
+
+      //sample for rectangle 
+
+      // ctx.moveTo(200,200);
+      // ctx.lineTo(50,120);
+      // ctx.lineTo(300,300);
+      // ctx.lineTo(320,220);
+      // ctx.lineTo(130,200);
+      // ctx.fillRect (30, 30, 55, 50);
+      // ctx.fill();
+
+      // sample for circular
+
+      // var x = 100;  // x 坐标值
+      // var y = 100;  // y 坐标值
+      // var radius = 50;    // 圆弧半径
+      // var startAngle = 0; // 开始点
+      // var endAngle = 1.5 * (Math.PI); // 结束点
+      // var anticlockwise = false; // 顺时针或逆时针
+      // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+      // ctx.fill();
+
+      // sample for bezier 
+
+      // ctx.moveTo(20,170);  
+      // ctx.lineTo(130,40);  
+      // ctx.lineTo(180,170);    
+      // ctx.stroke();            
+      // ctx.beginPath();  
+      // //ctx.moveTo(20,170);  
+      // ctx.bezierCurveTo(20,170,180,170,130,40); 
+      // ctx.strokeStyle = "red"; 
+      // ctx.stroke(); 
+
+      //sample for practice transparency
+      // ctx.fillStyle = "#FD0";
+      // ctx.fillRect(0, 0, 75, 75);
+      // ctx.fillStyle = "#6C0";
+      // ctx.fillRect(75, 0, 75, 75);
+      // ctx.fillStyle = "#09F";
+      // ctx.fillRect(75, 75, 75, 75);
+      // ctx.fillStyle = "#F30";
+      // ctx.fillRect(0, 75, 75, 75);
+      // for (var i = 0; i < 5; i++) {
+      //   ctx.globalAlpha = 0.2;
+      //   ctx.beginPath();
+      //   ctx.fillStyle = "#fff";
+      //   ctx.arc(75, 75, 10 + 10 * i, 0, Math.PI * 2, true);
+      //   ctx.fill();
+      // } 
+
+      // sample for practice Battery
+      // ctx.strokeStyle = "#ccc";
+      // ctx.strokeRect(10, 4, 75, 25);
+      // ctx.fill();
+      // ctx.fillStyle = "#ccc";
+      // ctx.fillRect(85, 12, 2.5, 7);
+      // ctx.fill();
+      // for (var i = 0; i < 6; i++){
+      //   ctx.fillStyle = 'rgba(255,224,26,'+(i+1)/10 +')';
+      //   ctx.fillRect((6-i)*11,5,10,24)
+      // }
+
+      //sample for line property
+      // var offset = 0;
+      // function draw() {
+      //   ctx.strokeStyle = "red";
+      //   ctx.clearRect(0,0, canvas.width, canvas.height);
+      //   ctx.setLineDash([4, 2]);
+      //   ctx.lineDashOffset = offset;
+      //   ctx.strokeRect(100,100, 100, 100);
+        
+      // }
+      // function march() {
+      //   offset++;
+      //   if (offset > 16) {
+      //     offset = 0;
+      //   }
+      //   draw();
+      //   setTimeout(march, 20);
+      // }
+      // march();
+
+      //sample for gradient
+      // var linerGradient = ctx.createLinearGradient(150,0,150,150);
+      // linerGradient.addColorStop(0, '#000');
+      // linerGradient.addColorStop(1, 'rgba(0,0,0,0)');
+      // ctx.fillStyle = linerGradient;
+      // ctx.fillRect(0,0,150,150);
+      
+      // sample for  draw image
+      // var img = new Img();
+      // img.onload = function() {
+      //   ctx.drawImage(img,0,0);
+      //   ctx.beginPath();
+      //   ctx.moveTo(30,30);
+      //   ctx.lineTo(40,50);
+      //   ctx.stroke();
+      // }
+      // img.src = "images/backdrop.png";
+
+      // sample for transform 
+      ctx.fillRect(0,0,300,300);
+      for (var i=0;i<3;i++) {
+        for (var j=0;j<3;j++) {
+          ctx.save();
+          ctx.strokeStyle = "#9CFF00";
+          ctx.translate(50+j*100,50+i*100);
+          drawSpirograph(ctx,20*(j+2)/(j+1),-8*(i+3)/(i+1),10);
+          ctx.restore();
+        }
+      }
+      function drawSpirograph(ctx,R,r,O){
+        var x1 = R-O;
+        var y1 = 0;
+        var i  = 1;
+        ctx.beginPath();
+        ctx.moveTo(x1,y1);
+        do {
+          if (i>20000) break;
+          var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+          var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+          ctx.lineTo(x2,y2);
+          x1 = x2;
+          y1 = y2;
+          i++;
+        } while (x2 != R-O && y2 != 0 );
+        ctx.stroke();
+      }
+    }
+  }
+</script>
+<style type="text/css">
+  canvas {
+    border: 1px solid #CCCCCC;
+  }
+</style>
+</head>
+<body onload="draw();">
+  <div style="background-color: #ffffff; width: 400px; height: 400px; margin: 20px auto;">
+    <canvas width="400px" height="400px" id="panel">
+    </canvas>
+  </div>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://www.xwcms.net/" target="_blank">xw素材网</a></p>
+</div>
+</body>
+</html>
