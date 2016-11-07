@@ -1,0 +1,48 @@
+for (var i = 0; i < 5; i++) {
+    (function exc(i) {
+        setTimeout(function() {
+            console.log(i);
+        },0);
+    })(i)
+};
+
+function outSide() {
+    var a = "outside";
+    
+    function inside() {
+        console.log(a);
+    }
+    return inside;
+}
+outSide()();
+
+function Person() {
+    var name = "dance";
+    var age = "age";
+    var programming = "programing";
+
+    function dance(name) {
+        this.name = name; 
+        console.log(name);
+    }
+
+    function sing(age) {
+        this.age = age; 
+        console.log(age);
+    }
+
+    function programing() {
+        console.log(programming);
+    }
+
+    return {
+        dance: dance,
+        sing: sing,
+        programing: programing
+    }
+
+}
+var elsa = new Person();
+elsa.dance("elsa");
+elsa.sing("elsa");
+elsa.programing();
